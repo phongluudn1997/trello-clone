@@ -83,7 +83,9 @@ export const NewItemInput = styled.input`
   width: 100%;
   padding: 0.8rem 1.6rem;
   border: none;
+  border-radius: 3px;
   font-family: inherit;
+  font-size: inherit;
   box-shadow: #091e4240 0px 1px 0px 0px;
   margin-bottom: 0.8rem;
 `;
