@@ -1,7 +1,18 @@
 import React from "react";
+import {
+  AppContainer,
+  ColumnContainer,
+  CardContainer,
+  ColumnTitle,
+} from "./styles";
 
-export function App() {
-  return <h1>Hello World</h1>;
-}
-
-export default App;
+export const App = () => {
+  return (
+    <AppContainer>
+      <ColumnContainer>
+        <ColumnTitle>Column Title</ColumnTitle>
+        <CardContainer>Task 1</CardContainer>
+      </ColumnContainer>
+    </AppContainer>
+  );
+};
