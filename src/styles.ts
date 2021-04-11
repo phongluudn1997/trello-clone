@@ -40,3 +40,50 @@ export const CardContainer = styled.div`
     margin-bottom: 0.8rem;
   }
 `;
+
+type AddItemButtonProps = {
+  dark?: boolean;
+};
+
+export const AddItemButton = styled.button<AddItemButtonProps>`
+  padding: 1rem 1.2rem;
+  background-color: #ffffff3d;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 85ms ease-in;
+  display: block;
+  width: 100%;
+  max-width: 30rem;
+  color: ${(props) => (props.dark ? "black" : "white")}
+
+  &:hover {
+    background-color: #ffffff52;
+  }
+`;
+
+export const NewItemFormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 300px;
+`;
+
+export const NewItemButton = styled.button`
+  border: none;
+  border-radius: 3px;
+  padding: 0.6rem 1.2rem;
+  background-color: #5aac44;
+  color: white;
+  text-align: center;
+`;
+
+export const NewItemInput = styled.input`
+  width: 100%;
+  padding: 0.8rem 1.6rem;
+  border: none;
+  font-family: inherit;
+  box-shadow: #091e4240 0px 1px 0px 0px;
+  margin-bottom: 0.8rem;
+`;

@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {
   AppContainer,
   ColumnContainer,
@@ -6,7 +6,7 @@ import {
   ColumnTitle,
 } from "./styles";
 
-export const App = () => {
+export const App: React.FC = () => {
   return (
     <AppContainer>
       <ColumnContainer>
