@@ -1,52 +1,57 @@
-import * as React from "react";
-import { AddNewItem } from "./AddNewItem";
+import { useRef } from "react";
 import { ColumnContainer, ColumnTitle } from "./styles";
 import { useAppState } from "./state/AppStateContext";
 import { Card } from "./Card";
-import { addTask, moveList } from "./state/actions";
+import { AddNewItem } from "./AddNewItem";
 import { useItemDrag } from "./utils/useItemDrag";
 import { useDrop } from "react-dnd";
-import { DragItem } from "./DragItem";
 import { isHidden } from "./utils/isHidden";
+import { moveList, addTask } from "./state/actions";
 
 type ColumnProps = {
-  id: string;
   text: string;
+  id: string;
+  isPreview?: boolean;
 };
 
-// type ColumnProps = React.PropsWithChildren<{ text: string }>;
-
-export const Column = ({ id, text }: ColumnProps) => {
-  const { getTasksByListId, dispatch, draggedItem } = useAppState();
-  const { drag } = useItemDrag({ id, text, type: "COLUMN" });
-  const ref = React.useRef<HTMLDivElement>(null);
+export const Column = ({ text, id, isPreview }: ColumnProps) => {
+  const { draggedItem, getTasksByListId, dispatch } = useAppState();
+  const tasks = getTasksByListId(id);
+  const ref = useRef<HTMLDivElement>(null);
   const [, drop] = useDrop({
     accept: "COLUMN",
     hover() {
-      if (!draggedItem) return;
-
+      if (!draggedItem) {
+        return;
+      }
       if (draggedItem.type === "COLUMN") {
-        if (draggedItem.id === id) return;
+        if (draggedItem.id === id) {
+          return;
+        }
 
         dispatch(moveList(draggedItem.id, id));
       }
     },
   });
-  drag(ref);
-  drop(ref);
 
-  const tasks = getTasksByListId(id);
+  const { drag } = useItemDrag({ type: "COLUMN", id, text });
+
+  drag(drop(ref));
 
   return (
-    <ColumnContainer ref={ref} isHidden={isHidden(draggedItem, "COLUMN", id)}>
+    <ColumnContainer
+      isPreview={isPreview}
+      ref={ref}
+      isHidden={isHidden(draggedItem, "COLUMN", id, isPreview)}
+    >
       <ColumnTitle>{text}</ColumnTitle>
       {tasks.map((task) => (
-        <Card text={task.text} id={task.id} key={task.id} />
+        <Card text={task.text} key={task.id} />
       ))}
       <AddNewItem
-        dark={true}
-        toggleButtonText="+ Add another task"
+        toggleButtonText="+ Add another card"
         onAdd={(text) => dispatch(addTask(text, id))}
+        dark
       />
     </ColumnContainer>
   );

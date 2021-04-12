@@ -1,7 +1,6 @@
 import { CardContainer } from "./styles";
 
 type CardProps = {
-  id: string;
   text: string;
 };
 
