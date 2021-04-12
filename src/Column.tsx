@@ -7,6 +7,7 @@ import { addTask, moveList } from "./state/actions";
 import { useItemDrag } from "./utils/useItemDrag";
 import { useDrop } from "react-dnd";
 import { DragItem } from "./DragItem";
+import { isHidden } from "./utils/isHidden";
 
 type ColumnProps = {
   id: string;
@@ -16,12 +17,12 @@ type ColumnProps = {
 // type ColumnProps = React.PropsWithChildren<{ text: string }>;
 
 export const Column = ({ id, text }: ColumnProps) => {
-  const { getTasksByListId, dispatch } = useAppState();
+  const { getTasksByListId, dispatch, draggedItem } = useAppState();
   const { drag } = useItemDrag({ id, text, type: "COLUMN" });
   const ref = React.useRef<HTMLDivElement>(null);
   const [, drop] = useDrop({
     accept: "COLUMN",
-    hover(draggedItem: DragItem) {
+    hover() {
       if (!draggedItem) return;
 
       if (draggedItem.type === "COLUMN") {
@@ -37,7 +38,7 @@ export const Column = ({ id, text }: ColumnProps) => {
   const tasks = getTasksByListId(id);
 
   return (
-    <ColumnContainer ref={ref}>
+    <ColumnContainer ref={ref} isHidden={isHidden(draggedItem, "COLUMN", id)}>
       <ColumnTitle>{text}</ColumnTitle>
       {tasks.map((task) => (
         <Card text={task.text} id={task.id} key={task.id} />
