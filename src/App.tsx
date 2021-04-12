@@ -3,9 +3,10 @@ import { AddNewItem } from "./AddNewItem";
 import { Column } from "./Column";
 import { AppContainer } from "./styles";
 import { useAppState } from "./state/AppStateContext";
+import { addList } from "./state/actions";
 
 export const App: React.FC = () => {
-  const { lists } = useAppState();
+  const { lists, dispatch } = useAppState();
   return (
     <AppContainer>
       {lists.map((list) => (
@@ -13,7 +14,7 @@ export const App: React.FC = () => {
       ))}
       <AddNewItem
         toggleButtonText="+ Add another list"
-        onAdd={(text) => console.log(text)}
+        onAdd={(text) => dispatch(addList(text))}
       />
     </AppContainer>
   );
