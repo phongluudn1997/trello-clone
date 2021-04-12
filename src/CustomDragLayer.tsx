@@ -1,5 +1,6 @@
 import { useDragLayer } from "react-dnd";
 import { Column } from "./Column";
+import { Card } from "./Card";
 import { CustomDragLayerContainer, DragPreviewWrapper } from "./styles";
 import { useAppState } from "./state/AppStateContext";
 
@@ -12,7 +13,16 @@ export const CustomDragLayer = () => {
   return draggedItem && currentOffset ? (
     <CustomDragLayerContainer>
       <DragPreviewWrapper position={currentOffset}>
-        <Column id={draggedItem.id} text={draggedItem.text} isPreview />
+        {draggedItem.type === "COLUMN" ? (
+          <Column id={draggedItem.id} text={draggedItem.text} isPreview />
+        ) : (
+          <Card
+            id={draggedItem.id}
+            text={draggedItem.text}
+            columnId={draggedItem.columnId}
+            isPreview
+          />
+        )}
       </DragPreviewWrapper>
     </CustomDragLayerContainer>
   ) : null;
