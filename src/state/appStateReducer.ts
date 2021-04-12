@@ -32,7 +32,7 @@ export const appStateReducer = (
 
       draft.lists[targetListIndex].tasks.push({
         id: nanoid(),
-        text: action.payload.text,
+        text: text,
       });
       break;
     }
