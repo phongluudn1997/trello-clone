@@ -50,9 +50,11 @@ export const Column = ({ text, id, isPreview }: ColumnProps) => {
       isHidden={isHidden(draggedItem, "COLUMN", id, isPreview)}
     >
       <ColumnTitle>{text}</ColumnTitle>
-      {tasks.map((task) => (
-        <Card id={task.id} columnId={id} text={task.text} key={task.id} />
-      ))}
+      {tasks.map((task) => {
+        return (
+          <Card id={task.id} columnId={id} text={task.text} key={task.id} />
+        );
+      })}
       <AddNewItem
         toggleButtonText="+ Add another card"
         onAdd={(text) => dispatch(addTask(text, id))}

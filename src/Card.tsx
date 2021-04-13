@@ -22,12 +22,7 @@ export const Card = ({ text, columnId, id, isPreview }: CardProps) => {
       if (!draggedItem) return;
       if (draggedItem.type !== "CARD") return;
       if (draggedItem.id === id) return;
-      console.log({
-        dragID: draggedItem.id,
-        id,
-        dragColumnId: draggedItem.columnId,
-        columnId,
-      });
+
       dispatch(moveTask(draggedItem.id, id, draggedItem.columnId, columnId));
     },
   });
